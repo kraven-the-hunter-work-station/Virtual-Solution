@@ -1,0 +1,18 @@
+# Protect sensitive configuration files
+<FilesMatch "email-config\.php$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Allow PHP execution but prevent direct access to PHP files
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Allow from all
+    # Only process through index.php or API handlers
+    <If "%{REQUEST_URI} !~ /secure-mailer\.php$">
+        Deny from all
+    </If>
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Menu Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .z-9999 { z-index: 9999; }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center">
+    <div class="relative">
+        <button 
+            id="profileBtn"
+            class="flex items-center gap-2 p-1 rounded-xl hover:bg-purple-600/20 transition-all duration-300 border border-purple-500/50 bg-gray-800"
+        >
+            <div class="w-8 h-8 rounded-lg overflow-hidden border-2 border-purple-500/50">
+                <img 
+                    src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" 
+                    alt="Profile"
+                    class="w-full h-full object-cover"
+                />
+            </div>
+            <span class="text-sm font-medium text-white">John</span>
+            <span id="debugIndicator" class="text-xs text-green-400 ml-2 hidden">●</span>
+        </button>
+
+        <!-- Profile Dropdown -->
+        <div 
+            id="profileMenu"
+            class="absolute right-0 top-full mt-2 w-72 bg-black border-2 border-purple-500 rounded-2xl overflow-hidden shadow-2xl z-9999 hidden"
+        >
+            <div class="p-4 border-b border-gray-700/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden border-2 border-purple-500/50">
+                        <img 
+                            src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" 
+                            alt="Profile"
+                            class="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold">John Doe</h3>
+                        <p class="text-gray-400 text-sm">john@example.com</p>
+                        <p class="text-purple-400 text-xs font-medium">ID: VS2025001</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-2">
+                <button class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-purple-600/20 transition-all duration-300">
+                    <span>👤</span>
+                    <span>View Profile</span>
+                </button>
+                <button class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-purple-600/20 transition-all duration-300">
+                    <span>⚙️</span>
+                    <span>Settings</span>
+                </button>
+                <button class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-600/20 transition-all duration-300">
+                    <span>🚪</span>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const profileBtn = document.getElementById('profileBtn');
+        const profileMenu = document.getElementById('profileMenu');
+        const debugIndicator = document.getElementById('debugIndicator');
+        let isMenuOpen = false;
+
+        profileBtn.addEventListener('click', function() {
+            isMenuOpen = !isMenuOpen;
+            console.log('Button clicked! Menu is now:', isMenuOpen);
+            
+            if (isMenuOpen) {
+                profileMenu.classList.remove('hidden');
+                debugIndicator.classList.remove('hidden');
+            } else {
+                profileMenu.classList.add('hidden');
+                debugIndicator.classList.add('hidden');
+            }
+        });
+
+        // Click outside to close
+        document.addEventListener('click', function(event) {
+            if (!profileBtn.contains(event.target) && !profileMenu.contains(event.target)) {
+                isMenuOpen = false;
+                profileMenu.classList.add('hidden');
+                debugIndicator.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+@echo off
+echo Starting PHP Development Server...
+php -S localhost:8000

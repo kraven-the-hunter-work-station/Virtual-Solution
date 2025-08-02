@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+    <script>
+        async function testAuth() {
+            try {
+                // Test relative path
+                const response = await fetch('/src/config/local-auth-mock.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'login',
+                        email: 'test@example.com',
+                        password: 'Test1234!'
+                    })
+                });
+                
+                const result = await response.json();
+                document.getElementById('result').innerHTML = 
+                    <pre></pre>;
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    <p style='color:red'>Error: </p>;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>API Endpoint Test</h1>
+    <button onclick='testAuth()'>Test Auth Endpoint</button>
+    <div id='result'></div>
+</body>
+</html>

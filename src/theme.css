@@ -1,0 +1,210 @@
+/* Theme Styles */
+
+/* Light Theme Styles */
+.light-theme {
+  /* Core Colors */
+  --color-primary: #4169E1; /* Royal Blue */
+  --color-accent: #FF6B00; /* Vibrant Orange */
+  --color-background: #FAFAFA; /* Snow White */
+  --color-card-bg: #F0F2F5; /* Light Gray */
+  --color-text-primary: #000000; /* Black (changed from Charcoal) */
+  --color-text-secondary: #000000; /* Black (changed from Dim Gray) */
+  --color-border: #E0E0E0; /* Light Silver */
+  --color-success: #28A745; /* Emerald Green */
+  --color-warning: #FFC107; /* Golden Yellow */
+  
+  /* Element Background */
+  background-color: var(--color-background);
+}
+
+/* Base Dark Theme Styles - Default */
+:root:not(.light-theme), .dark-theme {
+  /* Dark theme colors */
+  --color-primary: #8B5CF6; /* Purple */
+  --color-accent: #EC4899; /* Pink */
+  --color-background: #0F172A; /* Dark blue black */
+  --color-card-bg: #1E293B; /* Dark slate */
+  --color-text-primary: #F1F5F9; /* White */
+  --color-text-secondary: #94A3B8; /* Light gray */
+  --color-border: #334155; /* Dark gray */
+  --color-success: #10B981; /* Green */
+  --color-warning: #F59E0B; /* Amber */
+}
+
+/* Theme-specific display */
+.light-theme .dark-theme-background {
+  display: none;
+}
+
+.dark-theme .light-theme-background,
+:root:not(.light-theme) .light-theme-background {
+  display: none;
+}
+
+/* Light theme premium navigation */
+.light-theme .nav-glass-premium {
+  background: rgba(250, 250, 250, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  border-color: var(--color-border) !important;
+  box-shadow: 0 8px 20px rgba(65, 105, 225, 0.15) !important;
+}
+
+/* Additional black text overrides for specific elements */
+.light-theme .nav-glass-premium * {
+  color: #000000 !important;
+}
+
+.light-theme .nav-logo + div span {
+  color: #000000 !important;
+}
+
+/* Navigation item styling */
+.light-theme .nav-item,
+.light-theme .nav-item span,
+.light-theme .nav-item.active span {
+  color: #000000 !important;
+}
+
+.light-theme .nav-glass-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(to right, rgba(65, 105, 225, 0.3), rgba(255, 107, 0, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.light-theme .nav-glass-premium:hover::before {
+  opacity: 1;
+}
+
+.light-theme .nav-item {
+  color: #000000 !important;
+}
+
+.light-theme .nav-item.active,
+.light-theme button[class*="bg-gradient-to-r from-purple-600"] {
+  background: rgba(65, 105, 225, 0.1) !important;
+  border-color: rgba(65, 105, 225, 0.3) !important;
+  color: #000000 !important;
+}
+
+.light-theme .nav-item:hover {
+  background: rgba(65, 105, 225, 0.05) !important;
+  color: #000000 !important;
+}
+
+/* Override text colors */
+.light-theme h1, .light-theme h2, .light-theme h3, .light-theme h4, .light-theme h5 {
+  color: #000000 !important;
+}
+
+.light-theme p, .light-theme span:not(.keep-color), .light-theme div:not(.keep-color) {
+  color: #000000 !important;
+}
+
+/* Critical text color override for all light theme elements */
+.light-theme button span:not(.keep-color),
+.light-theme h1, .light-theme h2, .light-theme h3, .light-theme h4, .light-theme h5, .light-theme h6,
+.light-theme p, .light-theme li, .light-theme a:not(.keep-color),
+.light-theme label, .light-theme input, .light-theme textarea,
+.light-theme div:not(.keep-color), .light-theme span:not(.keep-color) {
+  color: #000000 !important;
+}
+
+/* Override any Tailwind text color classes */
+.light-theme [class*="text-white"],
+.light-theme [class*="text-gray"],
+.light-theme [class*="text-purple"],
+.light-theme [class*="text-pink"],
+.light-theme [class*="text-blue"] {
+  color: #000000 !important;
+}
+
+/* Override backgrounds */
+.light-theme .bg-black, .light-theme .bg-gray-900 {
+  background-color: var(--color-card-bg) !important;
+}
+
+/* Override buttons and interactive elements */
+.light-theme .btn-primary, .light-theme button.primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.light-theme .btn-accent, .light-theme .cta-button, .light-theme .cta-button-mobile {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent)) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* Comprehensive text color override for light theme */
+.light-theme * {
+  color: #000000 !important;
+}
+
+/* Exceptions for icons and special elements */
+.light-theme svg,
+.light-theme svg *,
+.light-theme .keep-color,
+.light-theme button[style*="linear-gradient"] *,
+.light-theme .cta-button *,
+.light-theme .cta-button-mobile * {
+  color: inherit !important;
+}
+
+/* Ensure white text on buttons with gradients */
+.light-theme button[style*="linear-gradient"] span,
+.light-theme .cta-button span,
+.light-theme .cta-button-mobile span {
+  color: white !important;
+}
+
+/* Light theme card styles */
+.light-theme .card, 
+.light-theme [class*="from-black"],
+.light-theme [class*="via-gray-900"] {
+  background: var(--color-card-bg) !important;
+  border-color: var(--color-border) !important;
+  color: #000000 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Light theme profile dropdown */
+.light-theme [data-profile-dropdown] {
+  background: rgba(240, 242, 245, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 10px 25px -5px rgba(65, 105, 225, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  color: #000000 !important;
+}
+
+.light-theme [data-profile-dropdown] h3,
+.light-theme [data-profile-dropdown] p,
+.light-theme [data-profile-dropdown] span,
+.light-theme [data-profile-dropdown] button {
+  color: #000000 !important;
+}
+
+/* Light theme buttons */
+.light-theme button:not([class*="bg-gradient"]):not(.keep-dark) {
+  color: #000000 !important;
+}
+
+.light-theme button:hover:not([class*="bg-gradient"]):not(.keep-dark) {
+  color: #000000 !important;
+}
+
+/* CTA buttons in light theme */
+.light-theme button[style*="linear-gradient"],
+.light-theme .cta-button,
+.light-theme .cta-button-mobile {
+  background: linear-gradient(135deg, #4169E1, #FF6B00) !important;
+  color: white !important;
+  border: none !important;
+}

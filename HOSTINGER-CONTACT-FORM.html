@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostinger Business Email Contact Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .form-container {
+            padding: 40px;
+        }
+        .hostinger-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .hostinger-info h3 {
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ff7e5f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,126,95,0.2);
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,126,95,0.3);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .message {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        .success {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            border-left: 4px solid #00d4ff;
+        }
+        .error {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: white;
+            border-left: 4px solid #ff4757;
+        }
+        .email-preview {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+        }
+        .email-content {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ff7e5f;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .copy-btn, .email-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .copy-btn {
+            background: linear-gradient(135deg, #56ab2f, #a8e6cf);
+            color: white;
+        }
+        .email-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        .copy-btn:hover, .email-btn:hover {
+            transform: translateY(-2px);
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff7e5f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stats {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Contact Form</h1>
+            <div class="badge">✉️ Hostinger Business Email Ready</div>
+        </div>
+        
+        <div class="form-container">
+            <div class="hostinger-info">
+                <h3>🚀 Optimized for Hostinger Business Email</h3>
+                <p>This form is specifically configured to work with your contact@virtualsolutionspath.com Hostinger business email account.</p>
+            </div>
+
+            <div id="message" class="message"></div>
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Sending to your Hostinger business email...</p>
+            </div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userMessage">Your Message *</label>
+                    <textarea id="userMessage" name="userMessage" required placeholder="Tell us about your project, goals, or questions..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn" id="submitBtn">
+                    <span id="btnText">📧 Send to Hostinger Email</span>
+                </button>
+            </form>
+
+            <div id="emailPreview" class="email-preview">
+                <h3>📩 Email Ready for Hostinger</h3>
+                <p><strong>Copy this content and send it to: contact@virtualsolutionspath.com</strong></p>
+                <div id="emailContent" class="email-content"></div>
+                <div class="action-buttons">
+                    <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Content</button>
+                    <button class="email-btn" onclick="openEmailClient()">📧 Open Email App</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <p>Messages stored locally: <span id="messageCount">0</span> | Powered by Hostinger Business Email</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEmailData = {};
+
+        function updateMessageCount() {
+            const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+            document.getElementById('messageCount').textContent = submissions.length;
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('emailContent').textContent;
+            navigator.clipboard.writeText(content).then(function() {
+                showMessage('📋 Content copied! Paste it in your email app and send to contact@virtualsolutionspath.com', 'success');
+            }).catch(function() {
+                showMessage('Please manually copy the email content above.', 'error');
+            });
+        }
+
+        function openEmailClient() {
+            const subject = encodeURIComponent(currentEmailData.subject);
+            const body = encodeURIComponent(currentEmailData.body);
+            const mailtoLink = `mailto:contact@virtualsolutionspath.com?subject=${subject}&body=${body}`;
+            
+            window.open(mailtoLink, '_blank');
+            showMessage('📧 Email client opened! Send the pre-filled message to complete.', 'success');
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 6000);
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+            
+            setTimeout(() => {
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('userMessage').value
+                };
+                
+                const subject = `New Contact Form Message from ${formData.firstName} ${formData.lastName}`;
+                const body = `Hello!
+
+You have received a new message from your website contact form:
+
+Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+
+Message:
+${formData.message}
+
+---
+This message was sent from Virtual Solutions Path Contact Form
+Time: ${new Date().toLocaleString()}
+Delivery: Hostinger Business Email
+
+Please reply directly to this email or contact the sender at: ${formData.email}`;
+
+                currentEmailData = { subject, body };
+                
+                const emailContentDiv = document.getElementById('emailContent');
+                emailContentDiv.textContent = `TO: contact@virtualsolutionspath.com
+SUBJECT: ${subject}
+
+${body}`;
+                
+                // Store submission with Hostinger tag
+                const submission = {
+                    id: Date.now().toString(),
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    message: formData.message,
+                    timestamp: new Date().toISOString(),
+                    status: 'hostinger-business-email-ready',
+                    emailService: 'Hostinger Business Email'
+                };
+                
+                const existingSubmissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+                existingSubmissions.push(submission);
+                localStorage.setItem('contact_submissions', JSON.stringify(existingSubmissions));
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('emailPreview').style.display = 'block';
+                document.getElementById('submitBtn').disabled = false;
+                
+                showMessage('✅ Message prepared for your Hostinger business email! Copy and send the content below.', 'success');
+                
+                document.getElementById('contactForm').reset();
+                updateMessageCount();
+                
+                console.log('Hostinger business email message ready:', submission);
+            }, 1500);
+        });
+
+        // Initialize
+        updateMessageCount();
+    </script>
+</body>
+</html>

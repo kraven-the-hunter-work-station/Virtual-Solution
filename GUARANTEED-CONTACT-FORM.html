@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Contact Form - Virtual Solutions Path</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .form-container {
+            padding: 40px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .message {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .email-preview {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+        }
+        .email-preview h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .email-content {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .copy-btn, .email-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .copy-btn {
+            background: #28a745;
+            color: white;
+        }
+        .email-btn {
+            background: #007bff;
+            color: white;
+        }
+        .steps {
+            background: #e7f3ff;
+            border: 1px solid #b6d4fe;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .steps h4 {
+            margin-top: 0;
+            color: #0c5460;
+        }
+        .steps ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .steps li {
+            margin-bottom: 8px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Contact Form</h1>
+            <p>Virtual Solutions Path - Direct Email Method</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="steps">
+                <h4>📧 How This Works:</h4>
+                <ol>
+                    <li>Fill out the form below</li>
+                    <li>Click "Send Message"</li>
+                    <li>Copy the generated email content</li>
+                    <li>Send it manually to contact@virtualsolutionspath.com</li>
+                    <li>You'll receive the message in your inbox!</li>
+                </ol>
+            </div>
+
+            <div id="message" class="message"></div>
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Processing your message...</p>
+            </div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userMessage">Your Message *</label>
+                    <textarea id="userMessage" name="userMessage" required placeholder="Describe your project, goals, or questions..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn" id="submitBtn">Send Message</button>
+            </form>
+
+            <div id="emailPreview" class="email-preview">
+                <h3>📩 Email Content Ready</h3>
+                <p><strong>Copy this content and send it to: contact@virtualsolutionspath.com</strong></p>
+                <div id="emailContent" class="email-content"></div>
+                <div class="action-buttons">
+                    <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Content</button>
+                    <button class="email-btn" onclick="openEmailClient()">📧 Open Email App</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEmailData = {};
+
+        function copyToClipboard() {
+            const content = document.getElementById('emailContent').textContent;
+            navigator.clipboard.writeText(content).then(function() {
+                showMessage('Content copied to clipboard! Now paste it in your email app.', 'success');
+            }).catch(function() {
+                showMessage('Please manually copy the email content above.', 'error');
+            });
+        }
+
+        function openEmailClient() {
+            const subject = encodeURIComponent(currentEmailData.subject);
+            const body = encodeURIComponent(currentEmailData.body);
+            const mailtoLink = `mailto:contact@virtualsolutionspath.com?subject=${subject}&body=${body}`;
+            
+            // Try to open email client
+            const link = document.createElement('a');
+            link.href = mailtoLink;
+            link.click();
+            
+            showMessage('Email client should open. If not, copy the content and send manually.', 'success');
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+            
+            setTimeout(() => {
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('userMessage').value
+                };
+                
+                // Create email content
+                const subject = `New Contact Form Message from ${formData.firstName} ${formData.lastName}`;
+                const body = `Hello!
+
+You have received a new message from your website contact form:
+
+Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+
+Message:
+${formData.message}
+
+---
+This message was sent from Virtual Solutions Path Contact Form
+Time: ${new Date().toLocaleString()}
+
+Please reply directly to this email or contact the sender at: ${formData.email}`;
+
+                currentEmailData = { subject, body };
+                
+                // Show email content
+                const emailContentDiv = document.getElementById('emailContent');
+                emailContentDiv.textContent = `TO: contact@virtualsolutionspath.com
+SUBJECT: ${subject}
+
+${body}`;
+                
+                // Store submission
+                const submission = {
+                    id: Date.now().toString(),
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    message: formData.message,
+                    timestamp: new Date().toISOString(),
+                    status: 'ready-to-send'
+                };
+                
+                const existingSubmissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+                existingSubmissions.push(submission);
+                localStorage.setItem('contact_submissions', JSON.stringify(existingSubmissions));
+                
+                // Hide loading, show email preview
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('emailPreview').style.display = 'block';
+                document.getElementById('submitBtn').disabled = false;
+                
+                showMessage('Message prepared! Copy the content below and send it to contact@virtualsolutionspath.com', 'success');
+                
+                // Reset form
+                document.getElementById('contactForm').reset();
+                
+                console.log('Message ready to send:', submission);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
